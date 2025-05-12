@@ -19,10 +19,11 @@ class AuthService {
       var fullUri = '$_apiUri/api/v1/login';
 
       final response = await dio.post(fullUri, data: data);
+      print('Ini response : $response');
 
       return response.data;
     } on DioException catch (e) {
-      debugPrint(e.message);
+      print('Ini error authLogin ${e.message}');
     }
   }
 

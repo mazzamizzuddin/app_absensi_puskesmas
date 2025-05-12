@@ -1,0 +1,2 @@
+/Users/mfajririki/Documents/Projects/Gawean/app_absensi_puskesmas/android/app/.cxx/Debug/6xb2c695/x86/CMakeFiles/rebuild_cache.dir
+/Users/mfajririki/Documents/Projects/Gawean/app_absensi_puskesmas/android/app/.cxx/Debug/6xb2c695/x86/CMakeFiles/edit_cache.dir
