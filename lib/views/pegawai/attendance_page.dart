@@ -22,8 +22,8 @@ class AttendancePage extends StatefulWidget {
 class _AttendancePageState extends State<AttendancePage> {
   // lokasi puskesmas
   String locationName = 'Puskesmas Tanjung Raja';
-  double locationLatitude = 0.0;
-  double locationLongitude = 0.0;
+  double locationLatitude = -3.0056412;
+  double locationLongitude = 104.7726997;
   bool _isLoading = false;
   Future<File>? imageFile;
   File? fotoFile;

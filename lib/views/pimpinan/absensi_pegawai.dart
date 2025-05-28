@@ -134,54 +134,56 @@ class _ReportAbsenPegawaiState extends State<ReportAbsenPegawai> {
               )),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.calendar_month_sharp,
-                    size: 16,
-                    color: blackColor,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.calendar_month_sharp,
+                      size: 16,
+                      color: blackColor,
+                    ),
                   ),
-                ),
-                // Text(
-                //   '12/06/2024',
-                //   style: openSansTextStyle.copyWith(
-                //     fontSize: 12,
-                //     color: blackColor,
-                //     fontWeight: semiBold,
-                //   ),
-                // )
-              ],
-            ),
-            FutureBuilder(
-                future: _riwayatAbsensiData,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            return listAbsen(context, snapshot.data![index]);
-                          }),
+                  // Text(
+                  //   '12/06/2024',
+                  //   style: openSansTextStyle.copyWith(
+                  //     fontSize: 12,
+                  //     color: blackColor,
+                  //     fontWeight: semiBold,
+                  //   ),
+                  // )
+                ],
+              ),
+              FutureBuilder(
+                  future: _riwayatAbsensiData,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height,
+                        child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              return listAbsen(context, snapshot.data![index]);
+                            }),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    }
+                    return Container(
+                      height: MediaQuery.of(context).size.height / 2,
+                      alignment: Alignment.center,
+                      child: const Center(child: Text('Loading...')),
                     );
-                  } else if (snapshot.hasError) {
-                    return Text(snapshot.error.toString());
-                  }
-                  return Container(
-                    height: MediaQuery.of(context).size.height / 2,
-                    alignment: Alignment.center,
-                    child: const Center(child: Text('Loading...')),
-                  );
-                })
-          ],
+                  })
+            ],
+          ),
         ),
       ),
     );

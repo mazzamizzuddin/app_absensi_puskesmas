@@ -1,0 +1,2 @@
+/Users/muhammadazzamizzuddin/Documents/app_absensi_puskesmas/android/app/.cxx/Debug/574we5w6/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/muhammadazzamizzuddin/Documents/app_absensi_puskesmas/android/app/.cxx/Debug/574we5w6/arm64-v8a/CMakeFiles/rebuild_cache.dir
