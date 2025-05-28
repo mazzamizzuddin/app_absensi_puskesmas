@@ -22,8 +22,8 @@ class AttendancePage extends StatefulWidget {
 class _AttendancePageState extends State<AttendancePage> {
   // lokasi puskesmas
   String locationName = 'Puskesmas Tanjung Raja';
-  double locationLatitude = 0.0;
-  double locationLongitude = 0.0;
+  double locationLatitude = -3.000003;
+  double locationLongitude = 104.7690358;
   bool _isLoading = false;
   Future<File>? imageFile;
   File? fotoFile;
@@ -107,6 +107,7 @@ class _AttendancePageState extends State<AttendancePage> {
       _sendPresence(distance.round());
       if (context.mounted) Navigator.pop(context);
     } catch (e) {
+      print('Ini Error check distance $e');
       _showSnackBar('Error $e');
       setState(() {
         _isLoading = false;
@@ -132,6 +133,7 @@ class _AttendancePageState extends State<AttendancePage> {
       try {
         _latestAbsensi = await AbsensiService().getLatestAbsensi();
         _userData = await UserService().getUserById();
+        print('${_userData.nama}');
         var data = {
           'user_id': _userData.id,
           'lokasi': locationName,
@@ -150,6 +152,7 @@ class _AttendancePageState extends State<AttendancePage> {
           }
         }
       } catch (e) {
+        print('Error send presence $e');
         _showSnackBar('Error $e');
       }
     } else {
