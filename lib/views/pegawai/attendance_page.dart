@@ -145,11 +145,10 @@ class _AttendancePageState extends State<AttendancePage> {
           res = await AbsensiService()
               .updateAbsensi(data, fotoFile!, _latestAbsensi.id);
         }
-        if (res['success']) {
-        } else {
-          if (context.mounted) {
-            _showSnackBar(res['message']);
-          }
+        print('Response send presence: $res');
+
+        if (context.mounted) {
+          _showSnackBar(res['message']);
         }
       } catch (e) {
         print('Error send presence $e');
