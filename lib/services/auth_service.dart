@@ -23,7 +23,7 @@ class AuthService {
 
       return response.data;
     } on DioException catch (e) {
-      print('Ini error authLogin ${e.message}');
+      print('Ini error authLogin ${e}');
     }
   }
 

@@ -23,7 +23,7 @@ class AbsensiService {
       var response = await dio.post(fullUri, data: formData);
       return response.data;
     } catch (e) {
-      debugPrint(e.toString());
+      print('Error posting absensi: $e');
     }
   }
 
@@ -64,6 +64,7 @@ class AbsensiService {
       int? userId = prefs.getInt('userId');
       var fullUri = '$_apiUri/api/v1/latest-absensi/$userId';
       final response = await dio.get(fullUri);
+      print(response.data);
       return LatestAbsensi.fromJson(response.data);
       // debugPrint(tanggalTerakhir);
     } catch (e) {
