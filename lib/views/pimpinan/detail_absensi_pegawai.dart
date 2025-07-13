@@ -1,10 +1,31 @@
+import 'package:app_absensi_puskesmas/models/absensi_model.dart';
 import 'package:app_absensi_puskesmas/theme/style.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
-class DetailReportAbsenPegawai extends StatelessWidget {
+class DetailReportAbsenPegawai extends StatefulWidget {
   const DetailReportAbsenPegawai({super.key});
 
-  Widget dataPegawai() {
+  @override
+  State<DetailReportAbsenPegawai> createState() =>
+      _DetailReportAbsenPegawaiState();
+}
+
+class _DetailReportAbsenPegawaiState extends State<DetailReportAbsenPegawai> {
+  late DateFormat dateFormat;
+  late DateFormat timeFormat;
+
+  @override
+  void initState() {
+    super.initState();
+
+    initializeDateFormatting();
+    dateFormat = DateFormat.yMMMMEEEEd('id');
+    timeFormat = DateFormat.Hm('id');
+  }
+
+  Widget dataPegawai(String nama, String jabatan) {
     return SizedBox(
       child: Row(
         children: [
@@ -17,7 +38,7 @@ class DetailReportAbsenPegawai extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Adelya Agustina',
+                nama,
                 style: openSansTextStyle.copyWith(
                   fontSize: 15,
                   color: blackColor,
@@ -26,7 +47,7 @@ class DetailReportAbsenPegawai extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                'Perawat Senior',
+                jabatan,
                 style: openSansTextStyle.copyWith(
                   fontSize: 8,
                   fontWeight: regular,
@@ -40,7 +61,11 @@ class DetailReportAbsenPegawai extends StatelessWidget {
     );
   }
 
-  Widget dataAbsenMasuk() {
+  Widget dataAbsenMasuk(String waktuHadir) {
+    final tanggalHadir =
+        dateFormat.format(DateTime.parse(waktuHadir).toLocal());
+    final formattedWaktuHadir =
+        timeFormat.format(DateTime.parse(waktuHadir).toLocal());
     return SizedBox(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,7 +85,7 @@ class DetailReportAbsenPegawai extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Senin, 13 Feb 2023',
+                    tanggalHadir,
                     style: openSansTextStyle.copyWith(
                       fontSize: 14,
                       color: blackColor,
@@ -69,7 +94,7 @@ class DetailReportAbsenPegawai extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    '08.30',
+                    formattedWaktuHadir,
                     style: openSansTextStyle.copyWith(
                       fontSize: 14,
                       fontWeight: semiBold,
@@ -89,7 +114,11 @@ class DetailReportAbsenPegawai extends StatelessWidget {
     );
   }
 
-  Widget dataAbsenKeluar() {
+  Widget dataAbsenKeluar(String waktuPulang) {
+    final tanggalPulang =
+        dateFormat.format(DateTime.parse(waktuPulang).toLocal());
+    final formattedWaktuPulang =
+        timeFormat.format(DateTime.parse(waktuPulang).toLocal());
     return SizedBox(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,7 +138,7 @@ class DetailReportAbsenPegawai extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Senin, 13 Feb 2023',
+                    tanggalPulang,
                     style: openSansTextStyle.copyWith(
                       fontSize: 14,
                       color: blackColor,
@@ -118,7 +147,7 @@ class DetailReportAbsenPegawai extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    '17.30',
+                    formattedWaktuPulang,
                     style: openSansTextStyle.copyWith(
                       fontSize: 14,
                       fontWeight: semiBold,
@@ -140,6 +169,8 @@ class DetailReportAbsenPegawai extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final RiwayatAbsensi riwayatAbsensi =
+        ModalRoute.of(context)!.settings.arguments as RiwayatAbsensi;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -166,11 +197,12 @@ class DetailReportAbsenPegawai extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 30),
-            dataPegawai(),
+            dataPegawai(
+                riwayatAbsensi.user!.nama!, riwayatAbsensi.user!.jabatan!),
             const SizedBox(height: 30),
-            dataAbsenMasuk(),
+            dataAbsenMasuk(riwayatAbsensi.createdAt.toString()),
             const SizedBox(height: 30),
-            dataAbsenKeluar(),
+            dataAbsenKeluar(riwayatAbsensi.updatedAt.toString()),
           ],
         ),
       ),

@@ -39,7 +39,8 @@ class _ReportAbsenPegawaiState extends State<ReportAbsenPegawai> {
     //         DateTime.parse(snapshot.data![index].createdAt.toString()));
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/absen-pegawai-detail');
+        Navigator.pushNamed(context, '/absen-pegawai-detail',
+            arguments: riwayatAbsensi);
       },
       child: SizedBox(
         child: Column(
