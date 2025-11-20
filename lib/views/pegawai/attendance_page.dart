@@ -22,8 +22,10 @@ class AttendancePage extends StatefulWidget {
 class _AttendancePageState extends State<AttendancePage> {
   // lokasi puskesmas
   String locationName = 'Puskesmas Tanjung Raja';
-  double locationLatitude = -3.005402;
-  double locationLongitude = 104.7729358;
+  // double locationLatitude = -3.005402;
+  // double locationLongitude = 104.7729358;
+  double locationLatitude = -3.0000649;
+  double locationLongitude = 104.7711389;
   bool _isLoading = false;
   Future<File>? imageFile;
   File? fotoFile;
@@ -131,25 +133,25 @@ class _AttendancePageState extends State<AttendancePage> {
   _sendPresence(int distance) async {
     if (distance <= 400) {
       // try {
-        _latestAbsensi = await AbsensiService().getLatestAbsensi();
-        _userData = await UserService().getUserById();
-        print('${_userData.nama}');
-        var data = {
-          'user_id': _userData.id,
-          'lokasi': locationName,
-        };
-        var res;
-        if (tombol == 'Hadir') {
-          res = await AbsensiService().postAbsensi(data, fotoFile!);
-        } else {
-          res = await AbsensiService()
-              .updateAbsensi(data, fotoFile!, _latestAbsensi.id);
-        }
-        print('Response send presence: $res');
+      _latestAbsensi = await AbsensiService().getLatestAbsensi();
+      _userData = await UserService().getUserById();
+      print('${_userData.nama}');
+      var data = {
+        'user_id': _userData.id,
+        'lokasi': locationName,
+      };
+      var res;
+      if (tombol == 'Hadir') {
+        res = await AbsensiService().postAbsensi(data, fotoFile!);
+      } else {
+        res = await AbsensiService()
+            .updateAbsensi(data, fotoFile!, _latestAbsensi.id);
+      }
+      print('Response send presence: $res');
 
-        if (context.mounted) {
-          _showSnackBar(res['message']);
-        }
+      if (context.mounted) {
+        _showSnackBar(res['message']);
+      }
       // } catch (e) {
       //   print('Error send presence $e');
       //   _showSnackBar('Error $e');
